@@ -5,7 +5,7 @@ const Room = require("../model/room");
 
 
 router.get("/chat/:id", async (req, res) => {
-    const {id} = req.params
+  const { id } = req.params
   const userid = req.user.number;
   const friendid = id;
   const roomid = Math.random();
@@ -18,19 +18,19 @@ router.get("/chat/:id", async (req, res) => {
 
     if (userRoom) {
       console.log("room exist");
-      res.render('chat',{userRoom})
+      res.render('chat', { userRoom })
     } else {
       const newroom = await new Room({
         room: roomid,
         member: [userid, friendid],
       });
       const saveroom = await newroom.save();
-         const useroom = await Room.findOne({
-           member: { $all: [userid, friendid] },
-         });
+      const useroom = await Room.findOne({
+        member: { $all: [userid, friendid] },
+      });
       console.log(saveroom,);
       console.log('new user room cretaed and rendered')
-         res.render("chat", {useroom});
+      res.render("chat", { useroom });
     }
   } catch (error) {
     console.log(error);
@@ -39,33 +39,34 @@ router.get("/chat/:id", async (req, res) => {
 
 router.get("/users", async (req, res) => {
   try {
-     const people = await person.find();
-   res.render('user', {people})
-  
+    const people = await person.find();
+    res.render('user', { people })
+
   } catch (err) {
-   console.log(err)
+    console.log(err)
   }
 });
 router.post("/chat", async (req, res) => {
   const { chat } = req.body;
+  console.log({chat})
   try {
     const messag = await new message({
-        chat:chat,
-        member:['rose', 'godswill']
-    }) ;
+      chat: chat,
+      member: ['rose', 'godswill'] // dont hardcode the members
+    });
     const msg = await messag.save()
-    console.log(msg)
-  
+    console.log({ msg })
+
   } catch (err) {
-   console.log(err)
+    console.log(err)
   }
 });
 
 router.get("/chats", async (req, res) => {
   try {
-  const chats = await message.find()
-  console.log(chats)
-  res.json(chats)
+    const chats = await message.find()
+    console.log(chats)
+    res.json(chats)
   } catch (err) {
     console.log(err);
   }
@@ -73,7 +74,7 @@ router.get("/chats", async (req, res) => {
 
 router.get("/onechats", async (req, res) => {
   try {
-    const chats = await message.find({member: {$all :['peter', 'emma']}});
+    const chats = await message.find({ member: { $all: ['peter', 'emma'] } });
     console.log(chats);
     res.json(chats);
   } catch (err) {
@@ -85,24 +86,20 @@ router.get("/onechats", async (req, res) => {
 router.post("/message", async (req, res) => {
   const userid = req.body.userId;
   const friendid = req.body.friendId;
-  const roomid = Math.random();
+  
   console.log("from react :", userid, friendid, roomid);
 
   try {
     const userRoom = await Room.findOne({ member: { $all: [userid, frienid] } });
-
     if (userRoom) {
-      
       console.log("room exist");
-
     } else {
+      const roomid = Math.random();
       const newroom = await new Room({
         room: roomid,
         member: [userid, friendid],
       });
-      const saveroom = await newroom.save();
-     console.log(saveroom)
-    
+      await newroom.save();
     }
   } catch (error) {
     console.log(error);
