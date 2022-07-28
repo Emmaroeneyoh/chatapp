@@ -1,0 +1,8 @@
+const user = await model.findById({id})
+console.log(user._id) 
+if(user) {
+    console.log(user)
+    const secret = jwt_secret + user.password
+    const payload = jwt.verify(token,secret)
+    res.render('reset',)
+} 

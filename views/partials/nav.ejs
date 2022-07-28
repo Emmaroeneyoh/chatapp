@@ -1,0 +1,42 @@
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <a class="navbar-brand" href="#">Navbar</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+  
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav mr-auto">
+      
+
+        <% if( user) { %>
+          <li class="nav-item">
+            <a class="nav-link" href="/authe/home">home</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/authe/profile">profile</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/authe/form/<%= user._id %> ">form</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/authe/logout">logout</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/users">users</a>
+          </li>
+      <% }  %>
+      
+     <% if(!user) { %>
+      <li class="nav-item">
+        <a class="nav-link" href="/authe/login">login</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/authe/signup">signup</a>
+      </li>
+    <% } %> 
+      
+      
+     
+       
+    </div>
+  </nav>
