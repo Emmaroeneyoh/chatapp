@@ -8,20 +8,28 @@
 
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <style>
+      .current-chat{
+        border: 2px solid black;
+        width: 200px;
+        height: 200px;
+      }
+    </style>
   </head>
   <body>
     <%- include('./partials/nav') %> 
     <h1>chat page</h1>
       
     <form method="post" action="/chat">
+        <div class="current-chat"></div>
         <div class="form-group">
-          <label for="exampleInputEmail1">chat</label>
+          <label for="exampleInputEmail1">Message</label>
           <input type="text" name="chat" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">
           <small id="emailHelp" class="form-text email text-muted"></small>
         </div>
 
         <div class="form-group">
-          <label for="exampleInputEmail1">chat</label>
+          <label for="exampleInputEmail1">Chat</label>
           <input type="text" value="<%=userRoom.room %> " class="form-control " id= "room" aria-describedby="emailHelp" placeholder="Enter email">
           <small id="emailHelp" class="form-text email text-muted"></small>
         </div>

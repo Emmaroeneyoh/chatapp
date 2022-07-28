@@ -20,19 +20,26 @@ const base = 'mongodb+srv://emmaro:1234@tutorial.klpqo.mongodb.net/nodetut?retry
 
 
 mongoose.connect(base)
-.then((result) => console.log('base connetced'))
+.then(() => console.log('database connetced'))
 
 
 const io = socket(server)
 
 io.on('connection', (socket) => {
-    console.log('socket coonected')
+    console.log('socket connected', socket.id)
      socket.on("joinroom", (data) => {
-        message.find()
-        .then((result) => console.log(result))
-       console.log('room number')
-        
+        console.log({data, msg})
+        socket.join(data.trim()) // join the room
+        // message.find()
+        // .then((result) => console.log({result}))
      });
+
+    socket.on("message", (msg, roomID) => {
+        // send the message to the room
+        // this means all members in the room should get the message
+        // listen for this message in the same place where you have the [joinroom] function
+        socket.to(roomID).emit(msg)
+    })
 })
 
 
